@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
+import { log } from "node:console";
 
 // Load biến môi trường từ file .env
 dotenv.config();
@@ -29,6 +30,11 @@ pool
   .getConnection()
   .then((connection) => {
     console.log("✅ Kết nối MySQL thành công!");
+    console.log("host:", process.env.DB_HOST);
+    console.log("user:", process.env.DB_USER);
+    console.log("database:", process.env.DB_NAME);
+    console.log("password", process.env.DB_PASSWORD);
+
     connection.release();
   })
   .catch((err) => {
