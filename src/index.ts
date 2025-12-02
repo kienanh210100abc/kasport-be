@@ -11,18 +11,16 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors()); // Cho phép frontend gọi API
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "*", // Cho phép frontend từ bất kỳ domain nào (hoặc chỉ định cụ thể)
+    credentials: true,
+  })
+);
 app.use(express.json()); // Parse JSON body
 
 // Tạo connection pool với MySQL
 const pool = mysql.createPool({
-  // host: process.env.DB_HOST,
-  // user: process.env.DB_USER,
-  // password: process.env.DB_PASSWORD,
-  // database: process.env.DB_NAME,
-  // waitForConnections: true,
-  // connectionLimit: 10,
-  // queueLimit: 0,
   host: process.env.DB_HOST, // mysql.railway.internal
   user: process.env.DB_USER, // root
   password: process.env.DB_PASSWORD,
